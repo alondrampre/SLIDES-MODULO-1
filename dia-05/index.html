@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Día 5 - Viernes: LAB 1 - Maestro Suizo</title>
+  
+  <!-- Google Fonts: Arvo & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --terracotta: #bb371e;
+      --teal: #058080;
+      --dark-navy: #151f30;
+      --coral: #ff7a48;
+      --deep-blue: #103778;
+      --yellow: #ffbb27;
+      --white: #ffffff;
+      --light-gray: #e2e8f0;
+      --dark-card: #1c273a;
+      
+      --font-title: 'Arvo', serif;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--dark-navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Bar */
+    header#top-bar {
+      height: 54px;
+      background: rgba(16, 23, 38, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 10;
+    }
+
+    .brand-title {
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      background: var(--terracotta);
+      color: var(--white);
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-weight: 600;
+    }
+
+    .class-title-header {
+      font-size: 0.95rem;
+      color: var(--light-gray);
+      font-weight: 500;
+    }
+
+    .top-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+
+    .btn-notes {
+      background: rgba(5, 128, 128, 0.2);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .btn-notes:hover {
+      background: var(--teal);
+      color: var(--white);
+    }
+
+    /* Main Viewport */
+    main#viewport {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 50px;
+      overflow: hidden;
+    }
+
+    .slide-wrapper {
+      width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      max-height: 680px;
+      background: var(--dark-card);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 50px;
+      overflow: hidden;
+    }
+
+    /* Slide Header & Footer Indicators */
+    .slide-indicator {
+      position: absolute;
+      top: 30px;
+      right: 35px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-num-badge {
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--yellow);
+      opacity: 0.9;
+    }
+
+    .slide-footer-bar {
+      position: absolute;
+      bottom: 25px;
+      left: 50px;
+      right: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 15px;
+    }
+
+    /* Slide Layouts */
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h2.slide-title {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+
+    .slide-body {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--light-gray);
+    }
+
+    .slide-body ul {
+      list-style-type: none;
+      margin-top: 10px;
+    }
+
+    .slide-body ul li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+    }
+
+    .slide-body ul li::before {
+      content: '•';
+      color: var(--coral);
+      font-size: 1.5rem;
+      position: absolute;
+      left: 4px;
+      top: -4px;
+    }
+
+    /* Title Layout */
+    .layout-title {
+      text-align: center;
+      align-items: center;
+    }
+
+    .layout-title h2.slide-title {
+      font-size: 2.8rem;
+      color: var(--white);
+      margin-bottom: 15px;
+    }
+
+    .class-pill {
+      display: inline-block;
+      background: rgba(255, 122, 72, 0.15);
+      color: var(--coral);
+      border: 1px solid var(--coral);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .highlight-text {
+      color: var(--yellow);
+      font-weight: 600;
+      margin-top: 15px;
+    }
+
+    /* Split Layout */
+    .layout-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      height: 100%;
+    }
+
+    .media-container {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      overflow: hidden;
+    }
+
+    .media-container img {
+      max-width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .diagram-canvas {
+      width: 100%;
+      max-height: 260px;
+    }
+
+    .image-placeholder {
+      border: 2px dashed var(--teal);
+      background: rgba(5, 128, 128, 0.08);
+      border-radius: 8px;
+      padding: 30px;
+      text-align: center;
+      color: var(--teal);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Grid Layout */
+    .layout-grid-container {
+      display: grid;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--yellow);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .card-num {
+      font-family: var(--font-title);
+      color: var(--terracotta);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .card-title {
+      font-family: var(--font-title);
+      color: var(--yellow);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      line-height: 1.4;
+    }
+
+    /* Quote Layout */
+    .layout-quote {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .quote-text {
+      font-family: var(--font-title);
+      font-size: 1.8rem;
+      color: var(--yellow);
+      font-style: italic;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .quote-author {
+      font-size: 1.1rem;
+      color: var(--coral);
+      font-weight: 600;
+    }
+
+    /* Bottom Controls */
+    footer#bottom-controls {
+      height: 60px;
+      background: rgba(16, 23, 38, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+    }
+
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .progress-bar-container {
+      flex: 1;
+      max-width: 400px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 0 20px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--yellow));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .slide-counter {
+      font-family: var(--font-title);
+      font-weight: 700;
+      color: var(--yellow);
+      font-size: 1rem;
+    }
+
+    /* Speaker Notes Drawer (Aisladas de la diapositiva) */
+    .notes-drawer {
+      position: fixed;
+      right: -420px;
+      top: 54px;
+      bottom: 60px;
+      width: 400px;
+      background: #111827;
+      border-left: 2px solid var(--teal);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      padding: 25px;
+      overflow-y: auto;
+    }
+
+    .notes-drawer.open {
+      right: 0;
+    }
+
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .notes-header h3 {
+      font-family: var(--font-title);
+      color: var(--teal);
+      font-size: 1.1rem;
+    }
+
+    .close-notes-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .close-notes-btn:hover {
+      color: var(--white);
+    }
+
+    .notes-content {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--light-gray);
+    }
+
+    .notes-content h3 {
+      color: var(--yellow);
+      margin: 15px 0 8px 0;
+      font-size: 1rem;
+    }
+
+    .notes-content p {
+      margin-bottom: 12px;
+    }
+
+    /* ==========================================================================
+       MODO PANTALLA COMPLETA: SOLO LA SLIDE (OCULTA BARRA SUPERIOR E INFERIOR)
+       ========================================================================== */
+    :fullscreen header#top-bar,
+    :fullscreen footer#bottom-controls,
+    :-webkit-full-screen header#top-bar,
+    :-webkit-full-screen footer#bottom-controls {
+      display: none !important;
+    }
+
+    :fullscreen main#viewport,
+    :-webkit-full-screen main#viewport {
+      padding: 0 !important;
+      height: 100vh !important;
+      width: 100vw !important;
+      max-width: none !important;
+      max-height: none !important;
+      background: var(--dark-navy) !important;
+    }
+
+    :fullscreen .slide-wrapper,
+    :-webkit-full-screen .slide-wrapper {
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      border-radius: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 60px 80px !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header id="top-bar">
+    <div class="brand-title">
+      MÓDULO 1 <span class="brand-badge">CLASE DÍA 5</span>
+    </div>
+    <div class="class-title-header">
+      Viernes: LAB 1 - Maestro Suizo
+    </div>
+    <div class="top-controls">
+      <button class="btn btn-notes" id="toggle-notes-btn" title="Ver Notas de Orador / Guía de Clase">
+        🎙️ Notas de Orador
+      </button>
+      <button class="btn" id="fullscreen-btn" title="Pantalla Completa">
+        ⛶ Pantalla Completa
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Viewport -->
+  <main id="viewport">
+    <div class="slide-wrapper" id="slide-wrapper">
+      <!-- Active slide rendered dynamically -->
+    </div>
+  </main>
+
+  <!-- Bottom Controls -->
+  <footer id="bottom-controls">
+    <div class="nav-group">
+      <button class="nav-btn" id="prev-btn" title="Anterior (Flecha izquierda)">&lsaquo;</button>
+      <button class="nav-btn" id="next-btn" title="Siguiente (Flecha derecha)">&rsaquo;</button>
+    </div>
+
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="slide-counter" id="slide-counter">01 / 13</div>
+  </footer>
+
+  <!-- Speaker Notes Drawer (NUNCA dentro de la slide) -->
+  <aside class="notes-drawer" id="notes-drawer">
+    <div class="notes-header">
+      <h3>🎙️ Guía del Docente / Orador</h3>
+      <button class="close-notes-btn" id="close-notes-btn">&times;</button>
+    </div>
+    <div class="notes-content" id="notes-content">
+      <!-- Speaker notes rendered dynamically -->
+    </div>
+  </aside>
+
+  <script>
+    const slidesData = [
+  {
+    "layout": "title",
+    "title": "LAB 1: Copia Deliberada",
+    "subtitle": "Semana 1 - Viernes / Maestro Suizo",
+    "content": "<p>Desconstrucción de una pieza clásica de la Escuela Suiza para entender la retícula y jerarquía.</p><p class='highlight-text'>Lanzamiento y pautas de entrega del primer laboratorio.</p>",
+    "notes": "<h3>Introducción</h3><p>Hoy lanzamos el LAB 1. La copia deliberada no es plagio, es una técnica pedagógica para deconstruir la estructura y entender las reglas matemáticas detrás de un diseño suizo clásico.</p>"
+  },
+  {
+    "layout": "split",
+    "title": "¿Qué es el Estilo Suizo?",
+    "content": "<p>El Estilo Tipográfico Internacional (décadas de 1950s).</p><ul><li>Basado en la claridad, objetividad y funcionalidad.</li><li>Uso riguroso de <strong>sistemas de retícula (grids)</strong>.</li><li>Tipografías Sans-Serif (Helvetica, Univers).</li><li>Composición asimétrica pero equilibrada.</li></ul>",
+    "media": "images/d05-viernes-slide02.jpg",
+    "notes": "<h3>Contexto histórico</h3><p>Menciona que este estilo sentó las bases del diseño corporativo e interfaces digitales actuales.</p>"
+  },
+  {
+    "layout": "split",
+    "title": "Josef Müller-Brockmann",
+    "content": "<p>El gran sistematizador de la retícula suiza.</p><ul><li>Su libro 'Sistemas de Retícula' sigue siendo la biblia de la diagramación.</li><li>Defendió que la retícula da coherencia, orden y libertad creativa racional.</li><li>Sus afiches de conciertos para el Zurich Tonhalle son obras maestras de la geometría.</li></ul>",
+    "media": "images/d05-viernes-slide03.jpg",
+    "notes": "<h3>Análisis visual</h3><p>Señala cómo Müller-Brockmann distribuía elementos en base a ángulos matemáticos y subdivisiones de la retícula.</p>"
+  },
+  {
+    "layout": "split",
+    "title": "Armin Hofmann",
+    "content": "<p>Maestro de la forma y el contraste visual.</p><ul><li>Enfoque más intuitivo y expresivo que Müller-Brockmann, pero igual de riguroso.</li><li>Fuerte contraste tonal (blanco y negro) y tipográfico.</li><li>Sintetizaba la forma al extremo para crear símbolos de gran fuerza icónica.</li></ul>",
+    "media": "images/d05-viernes-slide04.jpg",
+    "notes": "<h3>Comentario</h3><p>Hofmann demostró que la geometría rígida puede coexistir con un dinamismo dramático y expresivo.</p>"
+  },
+  {
+    "layout": "split",
+    "title": "El Poder de la Retícula (Grid)",
+    "content": "<p>La retícula no es una prisión, es un esqueleto estructural.</p><ul><li>Define márgenes, columnas y medianiles (gutter).</li><li>Garantiza la alineación consistente de textos e imágenes.</li><li>Reduce la carga cognitiva del lector al estructurar el orden de lectura.</li></ul>",
+    "media": "images/d05-viernes-slide05.jpg",
+    "notes": "<h3>Exposición</h3><p>Muestra cómo la retícula modular suiza organiza la página en bloques proporcionales.</p>"
+  },
+  {
+    "layout": "split",
+    "title": "Tipografía Sans-Serif Objetiva",
+    "content": "<p>La tipografía suiza es un elemento constructivo, no decorativo.</p><ul><li>Uso casi exclusivo de familias Sans-Serif (Helvetica, Univers, Akzidenz Grotesk).</li><li>La tipografía se utiliza para estructurar el espacio en blanco.</li><li>Jerarquía basada estrictamente en contrastes de tamaño y peso (bold vs. regular).</li></ul>",
+    "media": "images/d05-viernes-slide06.jpg",
+    "notes": "<h3>Aclaración</h3><p>Menciona que la tipografía en el estilo suizo actúa como imagen. El tamaño y la posición transmiten tanta información como las palabras.</p>"
+  },
+  {
+    "layout": "split",
+    "title": "Uso Activo del Espacio en Blanco",
+    "content": "<p>El espacio vacío no es un desperdicio, es un elemento compositivo activo.</p><ul><li>Da respiro visual e incrementa la fluidez cognitiva.</li><li>Dirige la mirada del espectador (atención visual).</li><li>Genera elegancia y jerarquía sin sobrecargar.</li></ul>",
+    "media": "images/d05-viernes-slide07.jpg",
+    "notes": "<h3>Ejemplo</h3><p>Compara un afiche suizo (70% espacio en blanco) con un folleto publicitario tradicional (completamente saturado) para ver el impacto.</p>"
+  },
+  {
+    "layout": "split",
+    "title": "LAB 1: El Objetivo",
+    "content": "<p><strong>Copia deliberada de una pieza clásica de la Escuela Suiza.</strong></p><ul><li>Aprender a deconstruir la retícula matemática invisible.</li><li>Identificar la estructura de columnas, márgenes y alineaciones.</li><li>Recrear con precisión las relaciones tipográficas (fuentes Sans-Serif) y espaciales.</li></ul>",
+    "media": "images/d05-viernes-slide08.jpg",
+    "notes": "<h3>Explicación del LAB</h3><p>El objetivo no es la invención artística, sino entrenar el ojo analítico y comprender la estructura rigurosa del diseño.</p>"
+  },
+  {
+    "layout": "grid",
+    "title": "LAB 1: Formato de Entrega",
+    "content": "<h2>Requerimientos técnicos obligatorios:</h2>",
+    "cards": [
+      {
+        "num": "DIM",
+        "title": "Dimensiones",
+        "desc": "1080 x 1350 px (vertical 4:5) o A3 proporcional (3508 x 4961 px a 300 dpi).",
+        "icon": "💡"
+      },
+      {
+        "num": "MED",
+        "title": "Medio de entrega",
+        "desc": "Carpeta en Google Drive con nomenclatura limpia: LAB1_MaestroSuizo.png.",
+        "icon": "⚙️"
+      },
+      {
+        "num": "MIR",
+        "title": "Exposición",
+        "desc": "Se sube al Tablero de Miro para muestra y feedback colectivo en clase.",
+        "icon": "🎨"
+      },
+      {
+        "num": "FECH",
+        "title": "Entrega",
+        "desc": "Se entrega el próximo lunes antes de la hora de clase.",
+        "icon": "🔬"
+      }
+    ],
+    "notes": "<h3>Importante</h3><p>Insiste en que la nomenclatura de archivos y las dimensiones exactas forman parte de la rúbrica de evaluación.</p>"
+  },
+  {
+    "layout": "split",
+    "title": "Cómo Analizar la Retícula del Maestro",
+    "content": "<p>Pasos para la deconstrucción gráfica en Illustrator:</p><ol><li>Coloca el afiche original en una plantilla bloqueada.</li><li>Traza líneas guía sobre las alineaciones de los textos.</li><li>Identifica la grilla de columnas y márgenes.</li><li>Mide las relaciones proporcionales de tamaño de fuente.</li></ol>",
+    "media": "images/d05-viernes-slide10.jpg",
+    "notes": "<h3>Metodología técnica</h3><p>Explica cómo configurar las reglas, guías y cuadrícula en Adobe Illustrator para que coincidan con la pieza original.</p>"
+  },
+  {
+    "layout": "split",
+    "title": "Errores Comunes en el LAB 1",
+    "content": "<p>Detalles que diferencian una pieza amateur de una profesional:</p><ul><li>Usar una tipografía diferente a la original (e.g. Arial en vez de Helvetica).</li><li>No alinear los textos con precisión milimétrica a la retícula.</li><li>Ignorar la proporción del espacio en blanco.</li><li>Nombres de archivo sucios (`final_final.png`).</li></ul>",
+    "media": "images/d05-viernes-slide11.jpg",
+    "notes": "<h3>Advertencia</h3><p>Diles que revisen el interletrado y el leading, ya que en el estilo suizo la tipografía descuidada rompe el diseño.</p>"
+  },
+  {
+    "layout": "grid",
+    "title": "Checklist de Verificación",
+    "content": "<h2>Antes de exportar tu PNG, revisa:</h2>",
+    "cards": [
+      {
+        "num": "01",
+        "title": "¿Retícula visible?",
+        "desc": "Haz un test ocultando el diseño original. ¿Se alinea todo?",
+        "icon": "💡"
+      },
+      {
+        "num": "02",
+        "title": "¿Fuentes correctas?",
+        "desc": "Usa Helvetica o Univers. Cuida el peso.",
+        "icon": "⚙️"
+      },
+      {
+        "num": "03",
+        "title": "¿Márgenes limpios?",
+        "desc": "Asegura aireación alrededor del afiche.",
+        "icon": "🎨"
+      },
+      {
+        "num": "04",
+        "title": "¿Exportación?",
+        "desc": "PNG a 72 dpi (para pantalla) o PDF vectorial.",
+        "icon": "🔬"
+      }
+    ],
+    "notes": "<h3>Consejo</h3><p>Diles que pasen el diseño a escala de grises para comprobar si el contraste de valor es correcto.</p>"
+  },
+  {
+    "layout": "title",
+    "title": "Práctica Privada: Inicio de LAB 1",
+    "subtitle": "Abran Illustrator, elijan su afiche de la carpeta de recursos e inicien el trazado de la retícula.",
+    "content": "<p class='highlight-text'>Monitoreo y feedback individual durante el resto de la clase.</p>",
+    "notes": "<h3>Cierre</h3><p>Camina por el salón o revisa las pantallas de los estudiantes. Ayúdalos a encontrar la estructura geométrica subyacente.</p>"
+  }
+];
+    let currentIndex = 0;
+    let notesOpen = false;
+
+    const slideWrapper = document.getElementById('slide-wrapper');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const slideCounter = document.getElementById('slide-counter');
+    const progressBar = document.getElementById('progress-bar');
+    const notesDrawer = document.getElementById('notes-drawer');
+    const notesContent = document.getElementById('notes-content');
+    const toggleNotesBtn = document.getElementById('toggle-notes-btn');
+    const closeNotesBtn = document.getElementById('close-notes-btn');
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+    // Automatic extension fallback if image format differs (.png, .jpg, .svg, .webp)
+    function handleImageError(img) {
+      const cleanSrc = img.src.split('?')[0];
+      if (!img.dataset.triedExt) {
+        img.dataset.triedExt = 'png';
+        img.src = cleanSrc.replace(/\.(jpg|jpeg|png|webp|svg)$/i, '.png') + '?t=' + Date.now();
+      } else if (img.dataset.triedExt === 'png') {
+        img.dataset.triedExt = 'jpg';
+        img.src = cleanSrc.replace(/\.(jpg|jpeg|png|webp|svg)$/i, '.jpg') + '?t=' + Date.now();
+      } else if (img.dataset.triedExt === 'jpg') {
+        img.dataset.triedExt = 'svg';
+        img.src = cleanSrc.replace(/\.(jpg|jpeg|png|webp|svg)$/i, '.svg') + '?t=' + Date.now();
+      } else if (img.dataset.triedExt === 'svg') {
+        img.dataset.triedExt = 'webp';
+        img.src = cleanSrc.replace(/\.(jpg|jpeg|png|webp|svg)$/i, '.webp') + '?t=' + Date.now();
+      }
+    }
+
+    function renderSlide(index) {
+      const slide = slidesData[index];
+      const slideNum = String(index + 1).padStart(2, '0');
+      
+      let layoutHtml = '';
+
+      if (slide.layout === 'title') {
+        layoutHtml = `
+          <div class="slide-content layout-title">
+            <div class="class-pill">MÓDULO 1 &bull; DÍA 5</div>
+            <h2 class="slide-title">${slide.title}</h2>
+            <div class="slide-body">${slide.content || ''}</div>
+            ${slide.subtitle ? `<div class="highlight-text" style="margin-top:20px;">${slide.subtitle}</div>` : ''}
+          </div>
+        `;
+      } else if (slide.layout === 'quote') {
+        layoutHtml = `
+          <div class="slide-content layout-quote">
+            <div class="quote-text">“${slide.content}”</div>
+            <div class="quote-author">— ${slide.title}</div>
+          </div>
+        `;
+      } else if (slide.layout === 'split') {
+        let mediaContent = '';
+        if (slide.media) {
+          const mediaSrc = slide.media.startsWith('images/') ? '../' + slide.media : slide.media;
+          if (slide.media.trim().startsWith('<svg')) {
+            mediaContent = slide.media;
+          } else {
+            mediaContent = `<img src="${mediaSrc}?t=${Date.now()}" onerror="handleImageError(this)" alt="${slide.title}" style="max-width:100%; max-height:320px; object-fit:cover; border-radius:8px;">`;
+          }
+        } else {
+          mediaContent = `<div class="image-placeholder">[IMAGEN: Ilus. o diagrama de ${slide.title}]</div>`;
+        }
+
+        layoutHtml = `
+          <div class="layout-split">
+            <div class="slide-content">
+              <h2 class="slide-title">${slide.title}</h2>
+              <div class="slide-body">${slide.content || ''}</div>
+            </div>
+            <div class="media-container">
+              ${mediaContent}
+            </div>
+          </div>
+        `;
+      } else if (slide.layout === 'grid') {
+        let cardsHtml = '';
+        let gridCols = 'grid-3';
+        if (slide.cards) {
+          if (slide.cards.length === 2) gridCols = 'grid-2';
+          else if (slide.cards.length === 4) gridCols = 'grid-4';
+
+          cardsHtml = slide.cards.map(c => `
+            <div class="card">
+              ${c.icon ? `<div class="card-icon">${c.icon}</div>` : ''}
+              ${c.num && !c.icon ? `<div class="card-num">${c.num}</div>` : ''}
+              <div class="card-title">${c.title}</div>
+              <div class="card-desc">${c.desc}</div>
+            </div>
+          `).join('');
+        }
+
+        layoutHtml = `
+          <div class="slide-content">
+            <h2 class="slide-title">${slide.title}</h2>
+            <div class="slide-body">${slide.content || ''}</div>
+            <div class="layout-grid-container ${gridCols}">
+              ${cardsHtml}
+            </div>
+          </div>
+        `;
+      } else {
+        layoutHtml = `
+          <div class="slide-content">
+            <h2 class="slide-title">${slide.title}</h2>
+            <div class="slide-body">${slide.content || ''}</div>
+          </div>
+        `;
+      }
+
+      slideWrapper.innerHTML = `
+        <div class="slide-indicator">
+          <span class="slide-num-badge">${slideNum}</span>
+        </div>
+        ${layoutHtml}
+        <div class="slide-footer-bar">
+          <span>Viernes: LAB 1 - Maestro Suizo</span>
+          <span>Día 5</span>
+        </div>
+      `;
+
+      // Update speaker notes
+      notesContent.innerHTML = slide.notes || '<p>No hay notas adicionales para esta diapositiva.</p>';
+
+      // Update controls
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === slidesData.length - 1;
+      slideCounter.textContent = `${slideNum} / ${String(slidesData.length).padStart(2, '0')}`;
+      progressBar.style.width = `${((index + 1) / slidesData.length) * 100}%`;
+    }
+
+    function goToNext() {
+      if (currentIndex < slidesData.length - 1) {
+        currentIndex++;
+        renderSlide(currentIndex);
+      }
+    }
+
+    function goToPrev() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderSlide(currentIndex);
+      }
+    }
+
+    // Navigation Events
+    nextBtn.addEventListener('click', goToNext);
+    prevBtn.addEventListener('click', goToPrev);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        goToNext();
+      } else if (e.key === 'ArrowLeft') {
+        goToPrev();
+      } else if (e.key.toLowerCase() === 'p') {
+        toggleNotes();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      }
+    });
+
+    // Notes drawer toggle
+    function toggleNotes() {
+      notesOpen = !notesOpen;
+      notesDrawer.classList.toggle('open', notesOpen);
+    }
+
+    toggleNotesBtn.addEventListener('click', toggleNotes);
+    closeNotesBtn.addEventListener('click', () => {
+      notesOpen = false;
+      notesDrawer.classList.remove('open');
+    });
+
+    // Fullscreen toggle
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+    // Initial Render
+    renderSlide(currentIndex);
+  </script>
+</body>
+</html>
