@@ -133,10 +133,41 @@ const slidesData = {
             "notes": "<h3>Nota histórica</h3><p>Explica que este concepto nació en la arquitectura y fue adoptado por la Bauhaus en el diseño de objetos y tipografía.</p>"
           },
           {
-            "layout": "split",
+            "layout": "grid",
             "title": "El Proceso de Diseño",
-            "content": "<p>Diseñar no es 'tener una idea genial' de golpe. Es un proceso estructurado:</p><ol><li>Investigar el problema.</li><li>Definir objetivos.</li><li>Generar alternativas (Ideación).</li><li>Seleccionar y refinar.</li><li>Validar e iterar.</li></ol>",
-            "media": "images/d01-lunes-slide08.jpg",
+            "content": "<p>Diseñar no es 'tener una idea genial' de golpe. Es un <strong>proceso iterativo y estructurado</strong> de 5 etapas:</p>",
+            "cards": [
+              {
+                "num": "01",
+                "icon": "🔍",
+                "title": "Investigar",
+                "desc": "Comprender el problema, el usuario y el contexto antes de dibujar nada."
+              },
+              {
+                "num": "02",
+                "icon": "🎯",
+                "title": "Definir",
+                "desc": "Establecer objetivos claros, restricciones y métricas de éxito."
+              },
+              {
+                "num": "03",
+                "icon": "💡",
+                "title": "Idear",
+                "desc": "Generar múltiples alternativas sin juzgar. Cantidad antes que calidad."
+              },
+              {
+                "num": "04",
+                "icon": "✂️",
+                "title": "Seleccionar y Refinar",
+                "desc": "Filtrar las mejores ideas y desarrollarlas hasta el nivel de detalle necesario."
+              },
+              {
+                "num": "05",
+                "icon": "🔄",
+                "title": "Validar e Iterar",
+                "desc": "Testear con usuarios reales. El diseño mejora con cada ciclo de feedback."
+              }
+            ],
             "notes": "<h3>Enfoque</h3><p>Menciona que saltear la investigación inicial es la causa más común de diseños que técnicamente lucen bien pero no funcionan en la práctica.</p>"
           },
           {
