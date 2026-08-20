@@ -19,6 +19,7 @@ const slidesData = {
             "title": "Y no, no se trata de dibujar...",
             "content": "<p>Cuando empezamos a estudiar diseño, solemos pensar que diseñar es <strong>'hacer que algo se vea lindo'</strong>.</p><ul><li>El diseño no es una capa estética aplicada al final.</li><li>Es un <strong>método para resolver problemas</strong> de comunicación y experiencia.</li><li>Se basa en decisiones formales y funcionales concretas.</li></ul>",
             "media": "images/d01-lunes-slide02.jpg",
+            "caption": "La imagen muestra el diagrama conocido como The Design Squiggle (El garabato del diseño), creado por Damien Newman",
             "notes": "<h3>Puntos clave para explicar</h3><p>Destaca que el diseño responde a restricciones y necesidades de comunicación. No es un capricho ornamental.</p>"
           },
           {

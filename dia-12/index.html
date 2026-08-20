@@ -1066,7 +1066,10 @@
           if (slide.media.trim().startsWith('<svg')) {
             mediaContent = slide.media;
           } else {
-            mediaContent = `<img src="${mediaSrc}?t=${Date.now()}" onerror="handleImageError(this)" alt="${slide.title}" style="max-width:100%; max-height:320px; object-fit:cover; border-radius:8px;">`;
+            mediaContent = `<div style="display:flex; flex-direction:column; align-items:center; width:100%;">
+              <img src="${mediaSrc}?t=${Date.now()}" onerror="handleImageError(this)" alt="${slide.title}" style="max-width:100%; max-height:300px; object-fit:cover; border-radius:8px;">
+              ${slide.caption ? `<p style="font-size:0.76rem; color:rgba(255,255,255,0.45); margin-top:12px; text-align:center; line-height:1.4; font-family:var(--font-body); max-width:92%;">${slide.caption}</p>` : ''}
+            </div>`;
           }
         } else {
           mediaContent = `<div class="image-placeholder">[IMAGEN: Ilus. o diagrama de ${slide.title}]</div>`;
