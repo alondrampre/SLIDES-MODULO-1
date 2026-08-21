@@ -1234,7 +1234,7 @@
             <div class="card">
               ${c.icon ? `<div class="card-icon">${c.icon}</div>` : ''}
               ${c.num && !c.icon ? `<div class="card-num">${c.num}</div>` : ''}
-              <div class="card-title">${c.title}</div>
+              <div class="card-title">${c.title || c.text || ''}</div>
               <div class="card-desc">${c.desc}</div>
             </div>
           `).join('');

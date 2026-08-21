@@ -1737,22 +1737,22 @@ const slidesData = {
             "content": "<h2>Antes de iniciar el TP Final, aseguren:</h2>",
             "cards": [
               {
-                "text": "Grupo de 3 integrado.",
+                "title": "Grupo de 3 integrado.",
                 "desc": "Definan canales de comunicación.",
                 "icon": "💡"
               },
               {
-                "text": "Carpeta en Drive.",
+                "title": "Carpeta en Drive.",
                 "desc": "Estructura estándar compartida.",
                 "icon": "⚙️"
               },
               {
-                "text": "Marca seleccionada.",
+                "title": "Marca seleccionada.",
                 "desc": "Justifiquen por qué requiere rediseño.",
                 "icon": "🎨"
               },
               {
-                "text": "Bitácora inicial.",
+                "title": "Bitácora inicial.",
                 "desc": "Registren el moodboard grupal de hoy.",
                 "icon": "🔬"
               }
